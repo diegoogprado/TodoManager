@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List | To Do Manager</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container">
+        <div class="content">
+            <h1><%= list.title %></h1>
+            <form id="addTask" method="post" class="taskLists" action="/app/<%= list.id%>/task">
+                <span class="taskList">
+                    <label for="name"><input type="text" name="name" class="taskList" required></label>
+                    <button type="submit" class="btn-create">Criar Tarefa</button>
+                </span>
+            </form>
+            <ul class="taskLists">
+                <% tasks.forEach(task => { %>
+                    <li>
+                        <span class="taskList <%=task.status%>">
+                            
+                            <span class="taskList-title">
+                                <h6><%= task.name%></h6>
+                            </span>
+                            <form id="check-form" action="/app/<%= list.id%>/check" method="post">
+                                <button type="submit" name="key" value="<%=task.key%>" class="btn-check"><% if (task.status == true) { %>
+                                 Refazer
+                                <% } else {%>Concluir<% } %></button>
+                            </form>
+                        </span>
+                    </li>
+                <% }) %>
+                </ul>
+                <button type="submit" class="btn-return"><a href="/app">Voltar</a></button>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+    
+</body>
+</html>
